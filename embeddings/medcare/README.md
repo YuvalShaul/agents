@@ -41,9 +41,14 @@ Document features:
 
 ### Unstructured data
 
-CSV files explained:
-1. Monthly Revenue Data (monthly_revenue_2024.csv)  
-This tracks how much money the clinic makes each month. Gross Charges = what they bill patients, Contractual Adjustments = discounts they must give to insurance companies, Collections = actual cash received. DSO (Days Sales Outstanding) = how long it takes to get paid (lower is better).
+#### CSV files explained
+**1. Monthly Revenue Data (monthly_revenue_2024.csv)**  
+This tracks how much money the clinic makes each month.  
+Gross Charges = what they bill patients  
+Contractual Adjustments = discounts they must give to insurance companies  
+Collections = actual cash received  
+DSO (Days Sales Outstanding) = how long it takes to get paid (lower is better).  
+
 2. Operating Expenses (operating_expenses_2024.csv)  
 This breaks down where the clinic spends money by category and quarter. Personnel Costs = salaries and benefits (usually 60-70% of healthcare expenses), Facility Costs = rent, utilities, insurance. Variance % shows if they spent more or less than budgeted.
 3. A/R Aging Analysis (ar_aging_analysis.csv)  
