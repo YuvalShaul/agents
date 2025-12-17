@@ -92,5 +92,3 @@ Example call:
   # If successful, success=True and content contains the JSON data as string
   # If failed, success=False and content contains error message
 """
-
-
