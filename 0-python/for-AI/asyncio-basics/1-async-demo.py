@@ -11,6 +11,6 @@ async def say(what, when):
 # print(ret)
 
 print('Starting')
-asyncio.run(say('hello', 5))   # This is where the event loop was created, and finally called 
+asyncio.run(say('hello', 5))   # This is where the event loop was created, and finnaly closed
 
 
