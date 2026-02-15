@@ -1,9 +1,12 @@
-# This file is managed manually
+# This file is managed manually.
 # Is is mean for humans, and document the libraries we are using.
-# From this file - the net-tool 
+# From this file we create the requirements.txt file for windows platform.
+# If you running on Windows, you can use the requirement.txt file directly.
 #
+# If you are running on Mac, use the requirements.in file to create your own requirements.txt file:
 # Use: 
 #      pip-compile .\requirements.in > requirements.txt
+
 
 # Basic Infrastructure
 notebook>=7.5
@@ -13,6 +16,7 @@ python-dotenv
 # The "Brain" (Gemma 3 local)
 langchain-ollama>=0.2.0
 langchain-openai
+openai
 
 # The "Hands" (Tools)
 langchain-community>=0.3.0
@@ -22,3 +26,4 @@ langgraph>=0.3.0
 langchain>=0.3.0
 # Required for the llm-math tool
 numexpr>=2.10.0
+langchain-mcp-adapters
