@@ -2,3 +2,7 @@ notebook
 PyMuPDF
 langchain
 langchain-text-splitters
+sentence-transformers
+chromadb
+ipywidgets
+
