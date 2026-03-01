@@ -1,0 +1,6 @@
+Service_ID,CPT_Code,Description,Base_Price,Gold_Copay
+SRV-101,99213,Office Visit - Established Patient,150,25
+SRV-102,70551,MRI Brain without Contrast,1200,150
+SRV-103,93000,EKG - Routine,75,10
+SRV-104,80053,Comprehensive Metabolic Panel,45,0
+SRV-105,29806,Shoulder Arthroscopy,4500,500

@@ -1,0 +1,4 @@
+Tier_ID,Tier_Name,Monthly_Premium,Annual_Deductible,In_Network_Coverage_Pct,Pharmacy_Benefit,Telehealth_Eligible
+MEM-001,Basic Access,150,2500,70,Generic Only,Yes
+MEM-002,Gold Premium,450,1000,90,Tier 1 & 2,Yes
+MEM-003,Platinum Elite,850,0,100,All Tiers,Yes
