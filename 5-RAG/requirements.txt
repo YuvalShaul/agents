@@ -12,6 +12,7 @@ anyio==4.12.1
     # via
     #   httpx
     #   jupyter-server
+    #   openai
     #   watchfiles
 argon2-cffi==25.1.0
     # via jupyter-server
@@ -63,7 +64,9 @@ colorama==0.4.6
     #   tqdm
     #   uvicorn
 comm==0.2.3
-    # via ipykernel
+    # via
+    #   ipykernel
+    #   ipywidgets
 debugpy==1.8.20
     # via ipykernel
 decorator==5.2.1
@@ -71,7 +74,9 @@ decorator==5.2.1
 defusedxml==0.7.1
     # via nbconvert
 distro==1.9.0
-    # via posthog
+    # via
+    #   openai
+    #   posthog
 durationpy==0.10
     # via kubernetes
 executing==2.2.1
@@ -113,6 +118,7 @@ httpx==0.28.1
     #   jupyterlab
     #   langgraph-sdk
     #   langsmith
+    #   openai
 huggingface-hub==1.5.0
     # via
     #   sentence-transformers
@@ -131,9 +137,13 @@ importlib-resources==6.5.2
 ipykernel==7.2.0
     # via jupyterlab
 ipython==9.10.0
-    # via ipykernel
+    # via
+    #   ipykernel
+    #   ipywidgets
 ipython-pygments-lexers==1.1.1
     # via ipython
+ipywidgets==8.1.8
+    # via -r requirements.in
 isoduration==20.11.0
     # via jsonschema
 jedi==0.19.2
@@ -145,6 +155,8 @@ jinja2==3.1.6
     #   jupyterlab-server
     #   nbconvert
     #   torch
+jiter==0.13.0
+    # via openai
 joblib==1.5.3
     # via scikit-learn
 json5==0.13.0
@@ -198,6 +210,8 @@ jupyterlab-server==2.28.0
     # via
     #   jupyterlab
     #   notebook
+jupyterlab-widgets==3.0.16
+    # via ipywidgets
 kubernetes==35.0.0
     # via chromadb
 langchain==1.2.10
@@ -205,10 +219,13 @@ langchain==1.2.10
 langchain-core==1.2.15
     # via
     #   langchain
+    #   langchain-openai
     #   langchain-text-splitters
     #   langgraph
     #   langgraph-checkpoint
     #   langgraph-prebuilt
+langchain-openai==1.1.10
+    # via -r requirements.in
 langchain-text-splitters==1.1.1
     # via -r requirements.in
 langgraph==1.0.9
@@ -274,6 +291,8 @@ oauthlib==3.3.1
     # via requests-oauthlib
 onnxruntime==1.24.2
     # via chromadb
+openai==2.26.0
+    # via langchain-openai
 opentelemetry-api==1.39.1
     # via
     #   chromadb
@@ -321,6 +340,8 @@ pandocfilters==1.5.1
     # via nbconvert
 parso==0.8.6
     # via jedi
+pillow==12.2.0
+    # via -r requirements.in
 platformdirs==4.9.2
     # via jupyter-core
 posthog==5.4.0
@@ -349,6 +370,7 @@ pydantic==2.12.5
     #   langchain-core
     #   langgraph
     #   langsmith
+    #   openai
 pydantic-core==2.41.5
     # via pydantic
 pygments==2.19.2
@@ -398,7 +420,9 @@ referencing==0.37.0
     #   jsonschema-specifications
     #   jupyter-events
 regex==2026.2.28
-    # via transformers
+    # via
+    #   tiktoken
+    #   transformers
 requests==2.32.5
     # via
     #   jupyterlab-server
@@ -407,6 +431,7 @@ requests==2.32.5
     #   posthog
     #   requests-oauthlib
     #   requests-toolbelt
+    #   tiktoken
 requests-oauthlib==2.0.0
     # via kubernetes
 requests-toolbelt==1.0.0
@@ -449,6 +474,8 @@ six==1.17.0
     #   posthog
     #   python-dateutil
     #   rfc3339-validator
+sniffio==1.3.1
+    # via openai
 soupsieve==2.8.3
     # via beautifulsoup4
 stack-data==0.6.3
@@ -467,6 +494,8 @@ terminado==0.18.1
     #   jupyter-server-terminals
 threadpoolctl==3.6.0
     # via scikit-learn
+tiktoken==0.12.0
+    # via langchain-openai
 tinycss2==1.4.0
     # via bleach
 tokenizers==0.22.2
@@ -487,12 +516,14 @@ tqdm==4.67.3
     # via
     #   chromadb
     #   huggingface-hub
+    #   openai
     #   sentence-transformers
     #   transformers
 traitlets==5.14.3
     # via
     #   ipykernel
     #   ipython
+    #   ipywidgets
     #   jupyter-client
     #   jupyter-core
     #   jupyter-events
@@ -518,6 +549,7 @@ typing-extensions==4.15.0
     #   grpcio
     #   huggingface-hub
     #   langchain-core
+    #   openai
     #   opentelemetry-api
     #   opentelemetry-exporter-otlp-proto-grpc
     #   opentelemetry-sdk
@@ -559,6 +591,8 @@ websocket-client==1.9.0
     #   kubernetes
 websockets==16.0
     # via uvicorn
+widgetsnbextension==4.0.15
+    # via ipywidgets
 xxhash==3.6.0
     # via
     #   langgraph

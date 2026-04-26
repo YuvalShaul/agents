@@ -5,4 +5,5 @@ langchain-text-splitters
 sentence-transformers
 chromadb
 ipywidgets
-
+langchain_openai
+Pillow
