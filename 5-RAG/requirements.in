@@ -7,3 +7,5 @@ chromadb
 ipywidgets
 langchain_openai
 Pillow
+ollama
+openai
