@@ -65,3 +65,21 @@ Create embeddings from images and texts, and store thise in ChromaDB (in separat
     Generates vector embeddings for all document text via OpenAI's API and stores them in the ChromaDB text collection.
     - **vectorize_all()**: 
     Clears previous vector data, initializes the persistent ChromaDB client, and runs both the face and text indexing pipelines.
+
+
+
+- [3-search.py](./3-search.py)  
+This is actually a small demo of the RAG data.  
+It takes a target query image, extracts the most prominent face embedding, and searches the persistent ChromaDB vector database to return the top 5 closest matching criminal or missing-person file entries based on facial features.
+  - Main libraries:
+    - **cv2 (OpenCV)**: Used to read the input query image file from disk.
+    - **chromadb**: Connects to the local database to query the stored face vectors using vector similarity.
+    - **insightface (FaceAnalysis)**: The high-performance framework used to localize faces and extract identity features.
+    - **buffalo_l (ArcFace model)**: The specific face recognition deep learning model used to map the face into a unique geometric embedding.
+  - Main Functions:
+    - **get_face_embedding(image_path, app)**:  
+    Reads an image, detects all faces inside it, selects the highest-confidence face, and returns its normalized vector embedding as a list.
+    - **query_face_collection(embedding, top_k)**:  
+    Connects to ChromaDB and performs a vector search against the face vector collection to retrieve the closest matching document IDs and metadata.
+    - **search_by_image(query_image_path, top_k)**:  
+    Acts as the main pipeline coordinator by initializing the facial model, triggering the embedding extraction, running the database query, and outputting the results.
