@@ -23,6 +23,47 @@ The loop `llm → tools → llm` repeats until the LLM produces a plain text rep
 
 ---
 
+## Building the Graph in Code
+
+The agent is assembled inside `build_graph()` using LangGraph's `StateGraph`:
+
+```python
+workflow = StateGraph(State)          # 1. create a graph that carries State
+
+workflow.add_node("llm",   call_model)   # 2. register the LLM node
+workflow.add_node("tools", ToolNode(tools))  # 3. register the tool-execution node
+
+workflow.add_edge(START, "llm")               # 4. graph always starts at the LLM
+workflow.add_conditional_edges("llm", should_continue)  # 5. route after LLM
+workflow.add_edge("tools", "llm")             # 6. after any tool runs, go back to LLM
+
+return workflow.compile()             # 7. freeze the graph into a runnable object
+```
+
+**State** is a `TypedDict` with a single field:
+
+```python
+class State(TypedDict):
+    messages: Annotated[list[BaseMessage], add_messages]
+```
+
+`add_messages` is a LangGraph reducer: instead of replacing the list on every node return, it **appends** new messages to it. This means the full conversation history — user input, LLM replies, tool results — accumulates automatically in `state["messages"]` as the graph runs.
+
+**`ToolNode`** is a LangGraph built-in. It reads the `tool_calls` list from the last message, finds the matching `@tool` function by name, calls it with the provided arguments, and wraps the return value in a `ToolMessage` that gets appended to the state.
+
+**`should_continue`** is the routing function wired to the conditional edge after `"llm"`:
+
+```python
+def should_continue(state: State) -> str:
+    if state["messages"][-1].tool_calls:
+        return "tools"
+    return END
+```
+
+It inspects the last message: if the LLM attached tool calls, execution moves to `"tools"`; otherwise the graph terminates.
+
+---
+
 ## LLM and Tool Binding
 
 **Model:** `gpt-4o` via `ChatOpenAI` from `langchain_openai` — used here purely as a thin wrapper around the OpenAI API. The higher-level LangChain framework (chains, LangChain agents, memory) is **not** used; all agent logic lives in LangGraph.
