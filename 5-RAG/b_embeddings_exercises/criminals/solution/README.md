@@ -7,9 +7,10 @@
 
 The solution id contained in these files:
 - [1-preparation.py](./1-preparation.py) 
-Reads the pdf files and extract the images (into a folder as files) and text (into a SQLite db).
+Reads the pdf files and extract the images (into a folder as files) and text (into a SQLite db).  
+Most of the important work is done in the [preparations.preparation_pdf](./preparations/preparation_pdf.py) module.
   - The PIL (Image) library: Used for handling and manipulating the extracted images.
-  - Custom Module ([preparations.preparation_pdf](./preparations/preparation_pdf.py)): Contains helper functions specifically tailored for PDF extraction and database management. It uses the fitx (PyMuPDF) library to extract items from a pdf file.
+  - Custom Module ([preparations.preparation_pdf](./preparations/preparation_pdf.py)): Contains helper functions specifically tailored for PDF extraction and database management.
   - main functions:
     - **process_all_pdf_files(tempdata_dir, DB_NAME)**: 
     Iterates through all PDF files in the posters folder, extracts their text and images, and saves the results to the database and temporary directory.
@@ -22,13 +23,49 @@ Reads the pdf files and extract the images (into a folder as files) and text (in
     - **save_images(image_PIL_objects, tempdata_dir, doc_id, DBconn)**: 
     Saves the extracted images as files in the temporary directory and logs their metadata in the database linked to the document ID.
 
+- [preparations/preparation_pdf.py](./preparations/preparation_pdf.py)
+This script acts as the foundational data processing pipeline. It reads raw PDF crime or missing-person posters, extracts their text and images, uses OpenAI models to clean the text into structured JSON and filter for human faces, and stores the structured data into a local SQLite database.
+  - main libraries:
+    - **fitz (PyMuPDF)**: Used to open PDFs and extract raw text and embedded images from the pages.
+    - **sqlite3**: Used to create and manage the relational database (documents and document_assets tables).
+    - **PIL (Image) & io**: Used to open, duplicate, resize, and save extracted image byte streams.
+    - **base64**: Used to encode images into string format so they can be sent over HTTP to OpenAI.
+    - **gpt-4o-mini**: 
+    The OpenAI multimodal LLM utilized twice: 
+      - once as a vision model to verify if a cropped image contains a person, 
+      - and once as a text model to parse unstructured OCR text into structured JSON.
+  - main functions:
+    - **extract_poster_components(poster_path)**: 
+    Extracts all raw text and images from a PDF poster, filters out non-human images, and cleans the text.
+    - **is_person(img)**: 
+    Resizes an image and sends it to gpt-4o-mini to determine via a vision prompt if a person is present in the frame.
+    - **save_images(image_PIL_objects, tempdata_dir, doc_id, DBconn)**: 
+    Saves approved images as physical PNG files and records their paths and parent document IDs in the database.
+    - **clean_text_to_json(full_text)**: Prompts gpt-4o-mini to transform raw, unstructured poster text into a clean, standardized JSON object.
+    - **save_full_text(full_text, posterfile, DBconn)**: 
+    Inserts the cleaned poster text JSON into the database and returns the newly generated unique document ID.
+
+
+
+
+
+
 - [2-vectorization.py](./2-vectorization.py)
 Create embeddings from images and texts, and store thise in ChromaDB (in separate collections)
+**Uses ArcFace model to detect a face in an image** (wo that we get the correct image)  
+**Uses text-embedding-3-large model to 
   - main libraries:
-    - sqlite3: Connects to the local database to fetch existing image paths and documents.
-    - cv2 (OpenCV): Loads and processes images from the file system.
-    - chromadb: Acts as the vector database to store and index the generated embeddings using cosine similarity.
-    - openai (OpenAI): Used to interface with OpenAI's API.
-    - InsightFace (FaceAnalysis): Python toolkit used for face detection and extraction.
-    - buffalo_l (ArcFace model): The specific InsightFace model used to extract high-accuracy face embeddings.
-    - text-embedding-3-large: The OpenAI model used to generate deep, high-dimensional text embeddings.
+    - **sqlite3**: Connects to the local database to fetch existing image paths and documents.
+    - **cv2 (OpenCV)**: Loads and processes images from the file system.
+    - **chromadb**: Acts as the vector database to store and index the generated embeddings using cosine similarity.
+    - **openai (OpenAI)**: Used to interface with OpenAI's API.
+    - **InsightFace (FaceAnalysis)**: Python toolkit used for face detection and extraction.
+    - **buffalo_l (ArcFace model)**: The specific InsightFace model used to extract high-accuracy face embeddings.
+    - **text-embedding-3-large**: The OpenAI model used to generate deep, high-dimensional text embeddings.
+  - main functions:
+    - **build_face_index(db_name, collection)**: 
+    Extracts the highest-scoring face embedding from database image assets using InsightFace and saves them into the ChromaDB face collection.
+    - **build_text_index(db_name, collection)**: 
+    Generates vector embeddings for all document text via OpenAI's API and stores them in the ChromaDB text collection.
+    - **vectorize_all()**: 
+    Clears previous vector data, initializes the persistent ChromaDB client, and runs both the face and text indexing pipelines.
