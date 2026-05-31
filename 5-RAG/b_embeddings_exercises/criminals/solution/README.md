@@ -23,3 +23,12 @@ Reads the pdf files and extract the images (into a folder as files) and text (in
     Saves the extracted images as files in the temporary directory and logs their metadata in the database linked to the document ID.
 
 - [2-vectorization.py](./2-vectorization.py)
+Create embeddings from images and texts, and store thise in ChromaDB (in separate collections)
+  - main libraries:
+    - sqlite3: Connects to the local database to fetch existing image paths and documents.
+    - cv2 (OpenCV): Loads and processes images from the file system.
+    - chromadb: Acts as the vector database to store and index the generated embeddings using cosine similarity.
+    - openai (OpenAI): Used to interface with OpenAI's API.
+    - InsightFace (FaceAnalysis): Python toolkit used for face detection and extraction.
+    - buffalo_l (ArcFace model): The specific InsightFace model used to extract high-accuracy face embeddings.
+    - text-embedding-3-large: The OpenAI model used to generate deep, high-dimensional text embeddings.
