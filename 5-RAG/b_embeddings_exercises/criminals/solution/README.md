@@ -46,10 +46,6 @@ This script acts as the foundational data processing pipeline. It reads raw PDF 
     Inserts the cleaned poster text JSON into the database and returns the newly generated unique document ID.
 
 
-
-
-
-
 - [2-vectorization.py](./2-vectorization.py)
 Create embeddings from images and texts, and store thise in ChromaDB (in separate collections)
 **Uses ArcFace model to detect a face in an image** (wo that we get the correct image)  
