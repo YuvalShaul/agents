@@ -6,21 +6,22 @@
   - embed case description in the same ChromaDB, but in another collection (**case_report_vectors**)
 
 The solution id contained in these files:
-- [1-preparation.py](./1-preparation.py) 
+- [1-preparation.py](./1-preparation.py)  
 Reads the pdf files and extract the images (into a folder as files) and text (into a SQLite db).  
 Most of the important work is done in the [preparations.preparation_pdf](./preparations/preparation_pdf.py) module.
-  - The PIL (Image) library: Used for handling and manipulating the extracted images.
-  - Custom Module ([preparations.preparation_pdf](./preparations/preparation_pdf.py)): Contains helper functions specifically tailored for PDF extraction and database management.
+  - Main libraries:
+    - The **PIL (Image) library**: Used for handling and manipulating the extracted images.
+    - Custom Module ([preparations.preparation_pdf](./preparations/preparation_pdf.py)): Contains helper functions specifically tailored for PDF extraction and database management.
   - main functions:
-    - **process_all_pdf_files(tempdata_dir, DB_NAME)**: 
+    - **process_all_pdf_files(tempdata_dir, DB_NAME)**:  
     Iterates through all PDF files in the posters folder, extracts their text and images, and saves the results to the database and temporary directory.
-    - **prepare_tempdata_dir(tempdata_dir)**: 
+    - **prepare_tempdata_dir(tempdata_dir)**:  
     Creates or cleans up the temporary directory where extracted image files will be stored.
-    - **extract_poster_components(poster_path)**: 
+    - **extract_poster_components(poster_path)**:  
     Parses a single PDF poster to extract its full text and image objects.
-    - **save_full_text(full_text, posterfile, DBconn)**: 
+    - **save_full_text(full_text, posterfile, DBconn)**:  
     Inserts the extracted poster text into the database and returns the generated document ID.
-    - **save_images(image_PIL_objects, tempdata_dir, doc_id, DBconn)**: 
+    - **save_images(image_PIL_objects, tempdata_dir, doc_id, DBconn)**:  
     Saves the extracted images as files in the temporary directory and logs their metadata in the database linked to the document ID.
 
 - [preparations/preparation_pdf.py](./preparations/preparation_pdf.py)
@@ -35,14 +36,14 @@ This script acts as the foundational data processing pipeline. It reads raw PDF 
       - once as a vision model to verify if a cropped image contains a person, 
       - and once as a text model to parse unstructured OCR text into structured JSON.
   - main functions:
-    - **extract_poster_components(poster_path)**: 
+    - **extract_poster_components(poster_path)**:  
     Extracts all raw text and images from a PDF poster, filters out non-human images, and cleans the text.
-    - **is_person(img)**: 
+    - **is_person(img)**:  
     Resizes an image and sends it to gpt-4o-mini to determine via a vision prompt if a person is present in the frame.
-    - **save_images(image_PIL_objects, tempdata_dir, doc_id, DBconn)**: 
+    - **save_images(image_PIL_objects, tempdata_dir, doc_id, DBconn)**:  
     Saves approved images as physical PNG files and records their paths and parent document IDs in the database.
     - **clean_text_to_json(full_text)**: Prompts gpt-4o-mini to transform raw, unstructured poster text into a clean, standardized JSON object.
-    - **save_full_text(full_text, posterfile, DBconn)**: 
+    - **save_full_text(full_text, posterfile, DBconn)**:  
     Inserts the cleaned poster text JSON into the database and returns the newly generated unique document ID.
 
 
@@ -59,11 +60,11 @@ Create embeddings from images and texts, and store thise in ChromaDB (in separat
     - **buffalo_l (ArcFace model)**: The specific InsightFace model used to extract high-accuracy face embeddings.
     - **text-embedding-3-large**: The OpenAI model used to generate deep, high-dimensional text embeddings.
   - main functions:
-    - **build_face_index(db_name, collection)**: 
+    - **build_face_index(db_name, collection)**:  
     Extracts the highest-scoring face embedding from database image assets using InsightFace and saves them into the ChromaDB face collection.
-    - **build_text_index(db_name, collection)**: 
+    - **build_text_index(db_name, collection)**:  
     Generates vector embeddings for all document text via OpenAI's API and stores them in the ChromaDB text collection.
-    - **vectorize_all()**: 
+    - **vectorize_all()**:  
     Clears previous vector data, initializes the persistent ChromaDB client, and runs both the face and text indexing pipelines.
 
 
