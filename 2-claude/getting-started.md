@@ -35,4 +35,16 @@ Setting up Claude Code...
 yuval@comp>
 ```
 
+### Login
+
+- Run claude in your terminal. 
+- On first use it prompts you to choose a login method: 
+  - "Claude account with subscription" (Pro, Max, Team, or Enterprise)  
+  or
+  - "Anthropic Console account" (API usage billing). 
+  For Pro, choose the first. 
+- A browser tab opens:
+sign in with your Claude account credentials. 
+If you're already logged in at claude.ai, the authorization is nearly instant. 
+- Return to your terminal, and Claude Code confirms the connection
 
