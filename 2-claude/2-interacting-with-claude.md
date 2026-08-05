@@ -23,12 +23,13 @@ first.
 
 When the session opens you should see, top to bottom:
 
+- A header showing the **active model** and the current working directory.
 - A **greyed-out example prompt** in the input box — Claude Code drafts this
   from the directory's recent git history, just to show you the input works.
   It's not a suggestion you have to follow.
 - The **input box** itself, where you type.
 - A **status line** under the box showing the current **permission mode**
-  (more on this below) and the active model.
+  (more on this below).
 
 ![alt text](claude-start.png)
 
