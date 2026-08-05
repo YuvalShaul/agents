@@ -37,14 +37,41 @@ yuval@comp>
 
 ### Login
 
-- Run claude in your terminal. 
-- On first use it prompts you to choose a login method: 
-  - "Claude account with subscription" (Pro, Max, Team, or Enterprise)  
-  or
-  - "Anthropic Console account" (API usage billing). 
-  For Pro, choose the first. 
-- A browser tab opens:
-sign in with your Claude account credentials. 
-If you're already logged in at claude.ai, the authorization is nearly instant. 
-- Return to your terminal, and Claude Code confirms the connection
+Run `claude` in your terminal. On first use it prompts you to choose a login
+method — pick whichever matches how you (or your organization) pays for
+Claude:
+
+```
+Select login method:
+❯ Claude account with subscription   Pro, Max, Team, or Enterprise
+  Anthropic Console account          API usage billing
+  3rd-party platform                 Amazon Bedrock, Microsoft Foundry, or Vertex AI
+```
+
+- **Claude account with subscription** — what I use (a Pro plan). Choose
+  this if you have a Pro, Max, Team, or Enterprise subscription and want
+  usage covered by that plan. A browser tab opens; sign in with your
+  claude.ai account. If you're already logged in at claude.ai, the
+  authorization is nearly instant.
+- **Anthropic Console account** — pay-as-you-go by API token usage instead
+  of a flat subscription. Choose this if you manage billing through
+  [console.anthropic.com](https://console.anthropic.com) — you'll need an
+  API key from there, which the browser step links to your terminal
+  session.
+- **3rd-party platform** — for organizations that already route Claude
+  traffic through Amazon Bedrock, Microsoft Foundry, or Google Vertex AI.
+  This asks for your cloud provider's credentials instead of an Anthropic
+  login, and billing goes through that cloud account. Only relevant if your
+  org has explicitly set this up — most students won't need it.
+
+Whichever you pick, return to the terminal after the browser step and
+Claude Code confirms the connection.
+
+**Non-interactive alternative**: if you're on a Console-billed API key, you
+can skip the prompt entirely by setting `ANTHROPIC_API_KEY` in your
+environment before running `claude` — handy for CI or scripting.
+
+Once logged in, `/logout` ends the session and clears stored credentials,
+and `/login` lets you sign in again or switch methods (e.g. after upgrading
+a subscription plan).
 
