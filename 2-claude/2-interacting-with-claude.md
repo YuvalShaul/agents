@@ -31,7 +31,7 @@ When the session opens you should see, top to bottom:
 - A **status line** under the box showing the current **permission mode**
   (more on this below).
 
-![alt text](claude-start.png)
+![alt text](claude-start-dir-demo.png)
 
 Nothing has been sent to Claude yet at this point — it's a local, empty
 conversation. Try asking something trivial to confirm it's alive:
