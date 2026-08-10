@@ -14,6 +14,18 @@ Provider packages (`langchain-openai`, `langchain-ollama`) implement those contr
 higher layers (`langchain`, `langgraph`) consume them. That is why a LangGraph agent can accept
 a chat model from any provider: they all subclass the same `BaseChatModel` defined here.
 
+**Layer order — the dependency arrow points one way:**
+
+```
+langchain  ──depends on──▶  langgraph  ──depends on──▶  langchain-core
+```
+
+Nothing below depends on anything above it. Verified from package metadata: `langchain` 1.3.14
+requires `langgraph<1.3.0,>=1.2.5` and `langchain-core<2.0.0,>=1.4.9`; `langgraph` 1.2.10 requires
+`langchain-core<2,>=1.4.7` and **does not require `langchain` at all**; `langchain-core` 1.5.3
+requires neither. So `langchain-core` is the bottom of the stack — import it first, and expect
+every layer above to speak its types.
+
 ## Index
 
 | Name | What it is | Most-used methods & fields |
