@@ -53,3 +53,19 @@ here:
 
 The registry itself is external; for local work, run the stand-in:
 `python3 .claude/skills/oir-registration/scripts/oir_mock.py`.
+
+## Enforcement
+
+Some of the rules above are enforced by hooks in
+[`.claude/settings.json`](.claude/settings.json), not left to good intentions:
+
+- A `.man` file under `bulk/manifests/` cannot be edited by any tool call —
+  file tools or shell. Correct `pending.csv` and supersede the consignment.
+- Edits to `bulk/pending.csv` are checked for bad seals, over-long titles and
+  unknown dispositions, and the problems come straight back.
+- Each session opens with the registry's live state injected.
+- A turn will not end while a manifest *this working tree changed* fails
+  validation (once per session).
+
+The scripts are in [`.claude/hooks/`](.claude/hooks). They are shell commands
+this repository runs on your machine — read them before trusting the folder.
