@@ -156,8 +156,11 @@ from your context. Four places to look:
   under the tool call: each agent's label, elapsed time, and its current
   tool call. This is your first stop.
 - **`/tasks`.** Lists everything running in the background for this
-  session — subagents alongside background shell tasks from Lab 4. Use it
-  to see what's still alive and to stop a runaway agent.
+  session — subagents alongside background shell tasks from Lab 4. Select a
+  subagent's row and press **`x`** to stop it; `Esc` on a permission prompt
+  only denies that request and leaves the agent running. A stopped agent
+  keeps whatever it already did, and one *you* stopped won't auto-resume —
+  [Lab 7](./3-defined-subagents.md) works through the whole lifecycle.
 - **Verbose transcript (`Ctrl+O`).** Toggles the full transcript, including
   the *prompt Claude wrote for each agent* and the raw result that came back.
   Read the prompts — they tell you whether Claude scoped the jobs well.

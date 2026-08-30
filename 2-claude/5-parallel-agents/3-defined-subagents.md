@@ -272,7 +272,67 @@ the `tools`/`disallowedTools` line you'd use if that script were the *only*
 command it should ever run — and note what Claude Code can and can't express
 there.
 
-### Exercise 6 — Come back after Lab 10 (optional)
+### Exercise 6 — Stop one, and see what it left behind
+
+**Goal:** end a subagent's life on purpose, and find out what survives it.
+
+1. In **Terminal A**, give `test-writer` more work than you intend to let it
+   finish:
+
+   > @agent-test-writer add tests for every endpoint and every error path, and reorganize the test file into classes while you're there.
+
+2. While it's running, open `/tasks`, select its row, and press **`x`**. The
+   agent stops; its row stays in the panel.
+
+3. Ask Claude to pick the work back up:
+
+   > Ask the test-writer agent to carry on where it left off.
+
+   It can't: an agent *you* stopped does not auto-resume, and the
+   `SendMessage` comes back refused as cancelled. (You can revive it
+   yourself by typing into its transcript from the panel, which clears the
+   stop.)
+
+4. Now find its remains, in **Terminal B**:
+
+   ```bash
+   git worktree list                 # its checkout, if it changed anything
+   git branch --list                 # its branch
+   git log --oneline main..<its-branch>
+   ```
+
+   Stopping is not undoing. Whatever it wrote and committed before you
+   stopped it is still there, on its own branch — which is exactly why
+   `isolation: worktree` matters.
+
+5. Clean up what you don't want:
+
+   ```bash
+   git worktree remove <path>
+   git branch -D <its-branch>
+   ```
+
+6. Now the other kind of stop. Start a long review, then ask *Claude* to end
+   it rather than doing it yourself:
+
+   > @agent-api-reviewer review main.py, the tests and CLAUDE.md in detail.
+
+   > Actually, stop the reviewer.
+
+   Claude calls `TaskStop`. Then ask for it again — *"have the reviewer
+   finish that review"* — and note the difference: this one resumes, because
+   the cancellation came from Claude and not from you.
+
+**Expected result:** two stops with the same visible effect and different
+consequences, and a branch full of half-finished work that outlived the agent
+that wrote it.
+
+**Think about it:** step 3's asymmetry is deliberate — your `x` means "I want
+this to stop", Claude's `TaskStop` means "this isn't needed right now". Which
+default would you want if a runaway agent were burning tokens while you were
+away from the keyboard?
+
+### Exercise 7 — Come back after Lab 10 (optional)
 
 Once you've done skills (Lab 8) and MCP (Lab 10), the demo has everything an
 Ondura specialist needs. Define `registry-clerk`:
@@ -292,7 +352,50 @@ Its capability comes from the MCP server, its procedure from the preloaded
 skill, and it cannot touch a file in the repo. Run it with an application
 pending and see whether it makes the mistakes Lab 10's Exercise 3 provokes.
 
-## 5. Inspecting and debugging
+## 5. Ending a subagent's life
+
+A subagent's run ends in one of four ways, and they differ in what you can do
+afterwards:
+
+| How the run ends | What you do | Resumable? |
+|---|---|---|
+| **It finishes** | Nothing — it returns its final message | Yes. "Continue that review…" resumes it with its full context |
+| **Claude stops it** | Ask: *"stop the test-writer"* — Claude calls `TaskStop` | Yes. A later message auto-resumes it |
+| **You stop it** | `/tasks`, select the row, press **`x`** | **Not automatically.** A later `SendMessage` is refused as cancelled; type into its transcript in the panel to revive it |
+| **It runs out of budget** | `maxTurns:` in its file | Yes. The result comes back marked *partial* |
+
+Two things that surprise people:
+
+- **`Esc` does not kill a subagent.** On a background agent's permission
+  prompt it denies *that request*; the agent keeps going. `x` in `/tasks` is
+  the stop button.
+- **Finishing is not dying.** A completed subagent keeps its whole
+  conversation. It lives in
+  `~/.claude/projects/<project>/<session>/subagents/agent-<id>.jsonl`,
+  survives compaction of your main conversation (separate file), and can be
+  resumed even after you restart Claude Code and resume the same session.
+  Transcripts are swept after `cleanupPeriodDays` — 30 by default.
+
+So the honest answer to "how do I end it" is: **you end the run, not the
+work.** Whatever the agent already did is still done. If it was writing in
+your checkout, those edits are in your checkout; if it had
+`isolation: worktree`, they are on its branch, and an untouched worktree is
+cleaned up automatically while a changed one waits for you to
+`git worktree remove` it. After stopping a writer, always look:
+
+```bash
+git status --short
+git worktree list
+```
+
+If something must happen at the end of every run — releasing a lock, tearing
+down a fixture — that belongs in a **`SubagentStop` hook** (Lab 9), either
+session-wide in `settings.json` or as a `hooks: Stop:` block in the agent's
+own frontmatter, which Claude Code converts to `SubagentStop`. Whether it
+fires on a cancellation as well as a normal finish isn't something the docs
+promise, so if it must run, test it in your version before relying on it.
+
+## 6. Inspecting and debugging
 
 - **`/agents`** — what's defined and what's running.
 - **`@agent-<name>`** — guaranteed delegation, and the typeahead confirms the
@@ -319,6 +422,7 @@ say what it is *not* for. When it behaves unlike its file: you edited a new
 | **Chosen by** | You, explicitly | Claude, from `description` — or you, with `@agent-` |
 | **Reviewable** | No | Yes — it's a file in a pull request |
 | **Good for** | One-off, shape-of-the-job-varies work | Jobs your team does repeatedly |
+| **Ends** | When it returns, when you press `x`, or with the session | The same — plus `maxTurns:` as a budget in the file |
 
 The progression: **do it ad hoc until you've done it twice, then write the
 file.** The moment worth noticing is when the safety of a delegation stops
