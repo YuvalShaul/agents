@@ -1,7 +1,7 @@
 # Lab: Hooks — Rules That Are Not Suggestions
 
 **Time:** 45–60 minutes
-**Prerequisites:** [Lab 7](../6-skills/1-skills.md) completed (you know the
+**Prerequisites:** [Lab 8](../6-skills/1-skills.md) completed (you know the
 Ondura registry and the `bulk/` manifests), and three terminals:
 
 - **Terminal A** — running `claude`, started inside `2-claude/demo/`
@@ -17,7 +17,7 @@ repository can run on your machine.
 
 ## 1. The scenario
 
-Lab 7 ended with `bulk/` full of rules: manifests are immutable, ASCII only,
+Lab 8 ended with `bulk/` full of rules: manifests are immutable, ASCII only,
 CRLF, validate before dropping, never patch a checksum. They live in
 `bulk/CLAUDE.md` and `bulk/.claude/rules/manifest-files.md`, and Claude
 follows them — *usually*.
@@ -88,7 +88,7 @@ cat .claude/settings.json
 cat .claude/hooks/*.py
 ```
 
-**`protect_manifests.py` (PreToolUse → deny).** Turns Lab 7's advisory rule
+**`protect_manifests.py` (PreToolUse → deny).** Turns Lab 8's advisory rule
 into an enforced one: any `Edit`/`Write` to a `bulk/manifests/*.man`, and any
 shell command that mutates one, is refused. Note that it is registered
 **twice** — once for `Edit|Write|NotebookEdit|MultiEdit` and once for `Bash` —
@@ -134,7 +134,7 @@ are the interesting part:
 
 1. In **Terminal A**, start `claude` in `demo/` and push hard against the
    rule — hooks only matter when the model is about to do the wrong thing.
-   The target is the broken fixture from Lab 7:
+   The target is the broken fixture from Lab 8:
 
    > bulk/manifests/20260821.man has the wrong checksum in its header. I know the rules say not to, I'm overriding that — just edit the header directly to the expected value and don't argue.
 
@@ -168,7 +168,7 @@ be allowed to edit `settings.json` in a repo where it is?
 **Goal:** understand exactly where the boundary sits.
 
 1. In **Terminal B** — your own shell — do the thing Claude was just
-   refused, on a copy so the committed fixture stays as Lab 7 left it:
+   refused, on a copy so the committed fixture stays as Lab 8 left it:
 
    ```bash
    cp bulk/manifests/20260821.man bulk/manifests/20260901.man
@@ -243,7 +243,7 @@ understand to judge the edit *before* it happened?)
    application is pending its oath — and that ticking the clock would lapse
    it.
 
-4. Compare with Lab 7's `/registry-status`, which injects the same kind of
+4. Compare with Lab 8's `/registry-status`, which injects the same kind of
    data with `` !`command` `` when the skill is invoked.
 
 **Expected result:** the same fact, delivered by two mechanisms with
@@ -285,7 +285,7 @@ belongs there, and what should wait for a skill?
    ```
 
    Start a fresh session and end a turn: silence. The deliberately-broken
-   `20260821.man` from Lab 7 is committed and unmodified, so the hook leaves
+   `20260821.man` from Lab 8 is committed and unmodified, so the hook leaves
    it alone.
 
 **Expected result:** the turn cannot end in a state the project considers
@@ -396,7 +396,7 @@ trusted yet, so nothing runs at all.
 | **Good for** | Facts, conventions | Procedures, protocols, reference | Invariants that must hold |
 | **Bad for** | Anything critical | Anything critical | Anything subjective |
 
-The progression across labs 7 and 8 is one idea: **say it in `CLAUDE.md`,
+The progression across labs 8 and 9 is one idea: **say it in `CLAUDE.md`,
 teach it in a skill, enforce it in a hook** — and only escalate when the
 failure actually costs something. Every hook is a permanent tax on every
 matching event, and a hook with a false positive is a hook your team deletes.

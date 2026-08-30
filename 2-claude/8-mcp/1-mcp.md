@@ -1,7 +1,7 @@
 # Lab: MCP — Giving Claude Tools Instead of Instructions
 
 **Time:** 45–60 minutes
-**Prerequisites:** [Lab 7](../6-skills/1-skills.md) and [Lab 8](../7-hooks/1-hooks.md)
+**Prerequisites:** [Lab 8](../6-skills/1-skills.md) and [Lab 9](../7-hooks/1-hooks.md)
 completed, and three terminals:
 
 - **Terminal A** — running `claude`, started inside `2-claude/demo/`
@@ -16,8 +16,8 @@ about talking to it.
 
 You have reached the Ondura registry three ways already:
 
-- **Lab 7** gave Claude a **skill** — the procedure — and a CLI to run.
-- **Lab 8** added **hooks** — enforcement around the parts that must not go
+- **Lab 8** gave Claude a **skill** — the procedure — and a CLI to run.
+- **Lab 9** added **hooks** — enforcement around the parts that must not go
   wrong.
 - Under both, the actual mechanism was the same: Claude wrote a shell
   command, Claude Code ran it, and Claude read text back.
@@ -180,13 +180,13 @@ use it?
    Everything that changes registry state still prompts. This is the same
    permission system as `Bash(pytest*)`, applied to MCP tool names.
 
-4. Compare with your Lab 7 transcript for the identical task.
+4. Compare with your Lab 8 transcript for the identical task.
 
 **Expected result:** the same seal, reached with no shell command, no output
 parsing, and a permission boundary drawn along "reads vs writes" rather than
 along a command string.
 
-**Think about it:** in Lab 7 the equivalent guard would have been a
+**Think about it:** in Lab 8 the equivalent guard would have been a
 `Bash(python3 *oir_cli.py verify*)` permission rule. Why is
 `mcp__oir__verify_seal` a more honest thing to grant?
 
@@ -298,7 +298,7 @@ and what would you do about it?
    Ask: *"is it safe to tick right now?"*
 
 4. Notice what you just did: the answer to "is it safe" is a *rule*
-   (`registry-status` in Lab 7 states it), and you have now encoded a piece
+   (`registry-status` in Lab 8 states it), and you have now encoded a piece
    of it in a tool that returns raw applications. Decide whether that was an
    improvement, and revert if it wasn't: `git checkout mcp/oir_mcp_server.py`.
 
@@ -332,7 +332,7 @@ The rule of thumb this project demonstrates:
 - **A hook** for the one or two invariants that must hold even when the model
   is wrong.
 
-And a fourth option people forget: a CLI plus a skill, as in Lab 7. If the
+And a fourth option people forget: a CLI plus a skill, as in Lab 8. If the
 thing is local, unauthenticated and cheap to shell out to, that combination
 costs nothing when idle and needs no server. MCP earns its constant cost when
 the integration is remote, authenticated, or used in most sessions.
@@ -357,7 +357,7 @@ server needing OAuth (`/mcp` shows *needs authentication*).
 
 ## Wrap-up
 
-| | **Lab 7 (skill + CLI)** | **This lab (MCP)** |
+| | **Lab 8 (skill + CLI)** | **This lab (MCP)** |
 |---|---|---|
 | **How Claude calls it** | Writes a shell command | Calls a typed tool |
 | **Arguments** | A string it composed | Schema-checked fields |

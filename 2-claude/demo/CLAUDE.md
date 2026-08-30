@@ -38,6 +38,16 @@ pytest
 - Tests call `books.clear()` in `setup_function` to reset state between
   tests, since the store is a module-level dict.
 
+## Subagents
+
+Two agent types are defined in [`.claude/agents/`](.claude/agents), so they
+are part of the project rather than one person's habit:
+
+- `api-reviewer` — read-only review of `main.py` and the tests. It has no
+  `Write` or `Edit` tool, by design.
+- `test-writer` — adds tests and runs `pytest` in its own git worktree, so it
+  never edits this checkout.
+
 ## Ondura Interlibrary Registry
 
 Books in this catalogue may carry a **seal** issued by the Ondura
