@@ -4,7 +4,7 @@ A short, hands-on tour of the Claude Code interface: starting a session, reading
 the first screen, finding where your credentials live, using condensed/expanded
 tool output, switching permission modes, and reading local configuration.
 
-Do this inside [`demo/`](./demo) so you have a real (if tiny) project to point
+Do this inside [`demo/`](../demo) so you have a real (if tiny) project to point
 Claude at, rather than an empty directory. This file itself stays here, one
 level up — you won't be editing it, just following along from wherever your
 terminal is.
@@ -16,7 +16,7 @@ cd demo
 claude
 ```
 
-If you're not logged in yet, see [`1-getting-started.md`](./1-getting-started.md)
+If you're not logged in yet, see [`1-getting-started.md`](../1-getting-started/1-getting-started.md)
 first.
 
 ## 2. The first view
@@ -31,7 +31,7 @@ When the session opens you should see, top to bottom:
 - A **status line** under the box showing the current **permission mode**
   (more on this below).
 
-![alt text](claude-start-dir-demo.png)
+![alt text](../material/claude-start-dir-demo.png)
 
 Nothing has been sent to Claude yet at this point — it's a local, empty
 conversation. Try asking something trivial to confirm it's alive:
@@ -143,4 +143,4 @@ Claude Code: what the first screen is telling you, where your login lives,
 how to expand a condensed tool call when you need the full detail, and how
 permission modes and settings files together decide what Claude is allowed
 to do without asking. From here, move on to
-[`3-first-project.md`](./3-first-project.md) to build something.
+[`3-first-project.md`](../3-first-project/1-first-project.md) to build something.

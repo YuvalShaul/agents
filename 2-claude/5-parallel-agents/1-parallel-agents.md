@@ -9,7 +9,7 @@ and two terminals open:
 
 ## 1. The scenario
 
-You've just inherited the Books API in [`demo/`](./demo) — one FastAPI file,
+You've just inherited the Books API in [`demo/`](../demo) — one FastAPI file,
 an in-memory dict, a handful of tests — and you've been asked to get it ready
 for a review meeting tomorrow. Three things need to happen before then:
 
@@ -60,7 +60,7 @@ scenario against these conditions:
 
 When one of these fails, parallelism gets harder, not impossible: jobs that
 *write* files concurrently need isolation (each agent in its own git
-worktree — that's [Lab 6](./6-parallel-writes.md)), and jobs that depend on
+worktree — that's [Lab 6](./2-parallel-writes.md)), and jobs that depend on
 each other need to be sequenced (do A, *then* fan out B and C).
 
 Notice what makes the demo project a good fit: it's tiny and it's fully

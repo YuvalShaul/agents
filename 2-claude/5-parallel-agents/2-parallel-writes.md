@@ -1,7 +1,7 @@
 # Lab: Many Hands, One Repo — Parallel Writes with Worktree Isolation
 
 **Time:** 30–40 minutes
-**Prerequisites:** [Lab 5](./5-parallel-agents.md) completed (you have the
+**Prerequisites:** [Lab 5](./1-parallel-agents.md) completed (you have the
 three reports — ideally saved as `demo/reports.md`), and two terminals open:
 
 - **Terminal A** — running `claude`, started inside `2-claude/demo/`
