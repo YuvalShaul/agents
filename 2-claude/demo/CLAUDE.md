@@ -69,3 +69,14 @@ Some of the rules above are enforced by hooks in
 
 The scripts are in [`.claude/hooks/`](.claude/hooks). They are shell commands
 this repository runs on your machine — read them before trusting the folder.
+
+## MCP
+
+The registry is also available as an MCP server — the same operations as
+`oir_cli.py`, offered as typed tools (`mcp__oir__apply`, `mcp__oir__attest`,
+…). It is declared in [`.mcp.json`](.mcp.json) at project scope, so it needs
+approving once per machine, and its source is [`mcp/`](mcp).
+
+The server is *access only*. The order of the steps, the oath window and the
+tick trap live in the `oir-registration` skill; a tool list does not replace
+a procedure.

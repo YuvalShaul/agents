@@ -14,7 +14,10 @@
       "Bash(git status)",
       "Bash(git diff*)",
       "Bash(git log*)",
-      "Bash(git show*)"
+      "Bash(git show*)",
+      "mcp__oir__health",
+      "mcp__oir__verify_seal",
+      "mcp__oir__list_applications"
     ],
     "deny": [
       "Bash(rm -rf *)",

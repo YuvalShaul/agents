@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "oir": {
+      "type": "stdio",
+      "command": "python3",
+      "args": ["mcp/oir_mcp_server.py"],
+      "env": {
+        "OIR_URL": "${OIR_URL:-http://127.0.0.1:8787}"
+      }
+    }
+  }
+}
