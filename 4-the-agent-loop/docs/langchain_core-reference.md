@@ -1,5 +1,10 @@
 # `langchain-core` Reference
 
+> **Superseded.** A newer edition of this file, updated to langchain-core 1.6.2 with re-verified examples,
+> lives in the `ai-material` repo: <a href="https://github.com/YuvalShaul/ai-material/blob/main/lang-docs/langchain_core-reference.md" target="_blank" rel="noopener">lang-docs/langchain_core-reference.md</a>.
+> The <a href="https://github.com/YuvalShaul/ai-material/blob/main/lang-docs/README.md" target="_blank" rel="noopener">lang-docs README</a> explains how the three packages relate.
+> This copy is kept as it was for the course material that references these versions.
+
 **Pinned version: `langchain-core==1.5.3`** — everything below was derived by inspecting this
 exact installed package, and every example was executed against it. Each heading links to
 [reference.langchain.com](https://reference.langchain.com/python/langchain-core), which is
