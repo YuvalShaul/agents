@@ -1,8 +1,8 @@
 # `langgraph` Reference
 
 > **Superseded.** A newer edition of this file, updated to langgraph 1.2.11 with re-verified examples,
-> lives in the `ai-material` repo: <a href="https://github.com/YuvalShaul/ai-material/blob/main/lang-docs/langgraph-reference.md" target="_blank" rel="noopener">lang-docs/langgraph-reference.md</a>.
-> The <a href="https://github.com/YuvalShaul/ai-material/blob/main/lang-docs/README.md" target="_blank" rel="noopener">lang-docs README</a> explains how the three packages relate.
+> lives on yuval.guide: <a href="https://www.yuval.guide/ai/langgraph-reference/" target="_blank" rel="noopener">langgraph-reference</a>.
+> The <a href="https://www.yuval.guide/ai/langchain-stack/" target="_blank" rel="noopener">stack overview</a> explains how the three packages relate.
 > This copy is kept as it was for the course material that references these versions.
 
 **Pinned version: `langgraph==1.2.10`** — everything below was derived by inspecting this exact
