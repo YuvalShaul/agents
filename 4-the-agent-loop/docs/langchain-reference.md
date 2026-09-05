@@ -1,5 +1,10 @@
 # `langchain` Reference
 
+> **Superseded.** A newer edition of this file, updated to langchain 1.4.0 with re-verified examples,
+> lives in the `ai-material` repo: <a href="https://github.com/YuvalShaul/ai-material/blob/main/lang-docs/langchain-reference.md" target="_blank" rel="noopener">lang-docs/langchain-reference.md</a>.
+> The <a href="https://github.com/YuvalShaul/ai-material/blob/main/lang-docs/README.md" target="_blank" rel="noopener">lang-docs README</a> explains how the three packages relate.
+> This copy is kept as it was for the course material that references these versions.
+
 **Pinned versions: `langchain==1.3.14`**, which resolved `langchain-core==1.5.3`,
 `langgraph==1.2.10` and (for the one live example) `langchain-anthropic==1.5.4`. Everything below
 was derived by inspecting these exact installed packages, and every example was executed against
